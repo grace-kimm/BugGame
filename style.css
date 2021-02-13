@@ -1,0 +1,104 @@
+button {
+  border: none;
+  outline: none;
+  background: none;
+  cursor: pointer;
+}
+
+body {
+  text-align: center;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 800px;
+  height: 500px;
+  background: url("img/background.png") center/cover no-repeat;
+}
+
+.game__menu {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.game__play {
+  font-size: 50px;
+  transition: all 300ms ease-in;
+}
+
+.game__play:hover {
+  color: teal;
+  transform: scale(1.1);
+}
+
+.game__timer {
+  padding: 10px 20px;
+  margin: 10px;
+  background-color: wheat;
+  border: 3px solid black;
+  font-size: 30px;
+  user-select: none;
+  cursor: auto;
+  visibility: hidden;
+}
+
+.game__score {
+  padding: 10px 20px;
+  background-color: salmon;
+  border: 2px solid white;
+  border-radius: 50%;
+  color: yellow;
+  font-size: 30px;
+  visibility: hidden;
+}
+
+.game__field {
+  position: relative;
+  margin-top: 40px;
+  width: 100%;
+  height: 100%;
+}
+
+.popup {
+  display: block;
+  background-color: #00000090;
+  width: 400px;
+  height: 140px;
+  align-items: center;
+  padding: 20px;
+  color: white;
+  text-align: center;
+  border: 20px;
+  margin: auto;
+  transform: translateY(-50%);
+}
+
+.pop-up--hide {
+  display: none;
+}
+
+.popup__replay {
+  margin-top: 20px;
+  color: white;
+  font-size: 40px;
+}
+
+.popup__result {
+  margin-top: 20px;
+  display: block;
+  font-size: 30px;
+}
+
+.bug,
+.carrot {
+  transition: transform 100ms ease-in;
+}
+
+.bug:hover,
+.carrot:hover {
+  transform: scale(1.1);
+}

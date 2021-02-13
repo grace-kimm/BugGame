@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Find a carrot game</title>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.2/css/all.css"
+      integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="main.js" defer></script>
+  </head>
+  <body>
+    <section class="game">
+      <section class="game__menu">
+        <button class="game__play">
+          <i class="fas fa-play-circle"></i>
+        </button>
+        <span class="game__timer">00:00</span>
+        <span class="game__score">3</span>
+      </section>
+      <section class="game__field">
+        <img class="bug" src="img/bug.png" alt="bug" />
+        <img class="carrot" src="img/carrot.png" alt="carrot" />
+      </section>
+      <section class="popup pop-up--hide">
+        <button class="popup__replay">
+          <i class="fas fa-redo"></i>
+        </button>
+        <span class="popup__result">YOU WIN!</span>
+      </section>
+    </section>
+  </body>
+</html>
