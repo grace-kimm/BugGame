@@ -8,6 +8,7 @@ const bug = document.querySelector(".bug");
 const carrot = document.querySelector(".carrot");
 
 const popUp = document.querySelector(".pop-up");
+let popUpText = document.querySelector(".pop-up__result");
 
 let BUG_NUM = 5;
 let CARROT_NUM = 5;
@@ -21,25 +22,40 @@ let timer = undefined;
 // menu : start
 // 1. play button click
 playBtn.addEventListener("click", () => {
-  // 1-1. play -> stop button
-  started = true;
-  playIcon.classList.remove("fa-play-circle");
-  playIcon.classList.add("fa-stop-circle");
+  if (started) {
+    stopGame();
+  } else {
+    startGame();
+  }
+});
 
+// 1. start button click
+function startGame() {
+  started = true;
+  // 1-1. play -> stop button
+  showStopBtn();
   // 1-2. show timer & score
   showTimerAndScore();
-  // 1-3. show bug, carrot on field
-  addItem("bug", BUG_NUM, "img/bug.png");
-  addItem("carrot", CARROT_NUM, "img/carrot.png");
-});
+  // 1-3. start timer
+  startTimer();
+  // 1-4. show bug, carrot on field
+  initGame();
+  // 1-5. hide popup
+  hidePopup();
+}
+
+// 1-1. play -> stop button
+function showStopBtn() {
+  playIcon.classList.remove("fa-play-circle");
+  playIcon.classList.add("fa-stop-circle");
+}
 
 // 1-2. show timer & score
 function showTimerAndScore() {
   timerBoard.style.visibility = "visible";
   scoreBoard.style.visibility = "visible";
-  startTimer();
 }
-// 1-2-1. start timer
+// 1-3. start timer
 function startTimer() {
   let remainTime = timeDuration;
   updateTimerText(remainTime);
@@ -56,7 +72,13 @@ function updateTimerText(time) {
   timerBoard.innerText = `0:${time}`;
 }
 
-// 1-3. show bug, carrot on field
+// 1-4. show bug, carrot on field
+function initGame() {
+  addItem("bug", BUG_NUM, "img/bug.png");
+  addItem("carrot", CARROT_NUM, "img/carrot.png");
+}
+
+// 1-4-1. add items
 function addItem(itemName, num, src) {
   const rect = field.getBoundingClientRect();
   x1 = 0;
@@ -78,7 +100,40 @@ function randomNumber(min, max) {
   return Math.random() * (max - min) + min;
 }
 
+// 1-5. hide popup
+function hidePopup() {
+  popUp.classList.add("pop-up--hide");
+}
+
 // menu: finish
+// 2. stop button click
+function stopGame() {
+  started = false;
+  showStartBtn();
+  hideTimerAndScore();
+  stopTimer();
+  showPopup();
+}
+// 2-1. stop -> play button
+function showStartBtn() {
+  playIcon.classList.add("fa-play-circle");
+  playIcon.classList.remove("fa-stop-circle");
+}
+// 2-2. hide timer & score
+function hideTimerAndScore() {
+  timerBoard.style.visibility = "hidden";
+  scoreBoard.style.visibility = "hidden";
+}
+// 2-3. stop timer
+function stopTimer() {
+  clearInterval(timer);
+}
+
+// 2-4. show popup
+function showPopup() {
+  popUp.classList.remove("pop-up--hide");
+  popUpText.innerText = "Replay?";
+}
 
 // field: click
 field.addEventListener("click", (event) => {
@@ -89,11 +144,6 @@ field.addEventListener("click", (event) => {
     gainScore();
   }
 });
-
-function stopGame() {
-  clearInterval(timer);
-  popUp.classList.remove("pop-up--hide");
-}
 
 function gainScore() {
   score++;
