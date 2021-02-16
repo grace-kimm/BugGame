@@ -8,6 +8,7 @@ const bug = document.querySelector(".bug");
 const carrot = document.querySelector(".carrot");
 
 const popUp = document.querySelector(".pop-up");
+const popUpBtn = document.querySelector(".pop-up__replay");
 let popUpText = document.querySelector(".pop-up__result");
 
 let BUG_NUM = 5;
@@ -23,7 +24,7 @@ let timer = undefined;
 // 1. play button click
 playBtn.addEventListener("click", () => {
   if (started) {
-    stopGame();
+    stopGame(false);
   } else {
     startGame();
   }
@@ -74,6 +75,8 @@ function updateTimerText(time) {
 
 // 1-4. show bug, carrot on field
 function initGame() {
+  score = 0;
+  field.innerHTML = "";
   addItem("bug", BUG_NUM, "img/bug.png");
   addItem("carrot", CARROT_NUM, "img/carrot.png");
 }
@@ -107,12 +110,12 @@ function hidePopup() {
 
 // menu: finish
 // 2. stop button click
-function stopGame() {
+function stopGame(win) {
   started = false;
   showStartBtn();
   hideTimerAndScore();
   stopTimer();
-  showPopup();
+  showPopup(win ? "YOU WON!" : "YOU LOST...");
 }
 // 2-1. stop -> play button
 function showStartBtn() {
@@ -130,26 +133,35 @@ function stopTimer() {
 }
 
 // 2-4. show popup
-function showPopup() {
+function showPopup(text) {
   popUp.classList.remove("pop-up--hide");
-  popUpText.innerText = "Replay?";
+  popUpText.innerText = text;
 }
 
 // field: click
 field.addEventListener("click", (event) => {
   const target = event.target;
   if (target.matches(".bug")) {
-    stopGame();
+    stopGame(false);
   } else if (target.matches(".carrot")) {
+    target.remove();
     gainScore();
+    updateScore();
+    if (score === CARROT_NUM) {
+      stopGame(true);
+    }
   }
 });
 
 function gainScore() {
   score++;
-  updateScore();
 }
 
 function updateScore() {
   scoreBoard.innerText = `${score}`;
 }
+
+// pop-up : replay
+popUpBtn.addEventListener("click", () => {
+  startGame();
+});
